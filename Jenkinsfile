@@ -22,6 +22,7 @@ pipeline {
                 echo 'Starting to build the project builder docker image'
                 script {
                     builderImage = docker.build("${ACCOUNT_REGISTRY_PREFIX}/docker-nodejs:${GIT_COMMIT_HASH}", "-f ./Dockerfile.builder .")
+                    docker.withRegistry( '', registryCredential ) {
                     builderImage.push()
                     builderImage.push("${env.GIT_BRANCH}")
                     builderImage.inside('-v $WORKSPACE:/output -u root') {
@@ -29,6 +30,7 @@ pipeline {
                            cd /output
                            lein uberjar
                         """
+                      }
                     }
                 }
             }
