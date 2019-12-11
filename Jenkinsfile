@@ -1,4 +1,3 @@
-def builderImage
 def productionImage
 def ACCOUNT_REGISTRY_PREFIX
 def GIT_COMMIT_HASH
@@ -35,3 +34,4 @@ pipeline {
             }
         }
     }
+}
